@@ -29,7 +29,7 @@ var OPTIMUS = 2;
  * Utility function to perform one function and then another
  */
 function andThen(first, second) {
-    return function (lines) {
+    return lines => {
         first(lines);
         return second(lines);
     };

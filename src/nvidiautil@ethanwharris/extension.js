@@ -254,12 +254,12 @@ var MainMenu = GObject.registerClass(
          this._updatePollTime();
 
          this._settingChangedSignals = [];
-         this._addSettingChangedSignal(SETTINGS_PROVIDER, () => this._reload());
-         this._addSettingChangedSignal(SETTINGS_REFRESH, () => this._updatePollTime());
-         this._addSettingChangedSignal(SETTINGS_TEMP_UNIT, () => this._updateTempUnits());
-         this._addSettingChangedSignal(SETTINGS_POSITION, () => this._updatePanelPosition());
-         this._addSettingChangedSignal(SETTINGS_SPACING, () => this._updateSpacing());
-         this._addSettingChangedSignal(SETTINGS_ICONS, () => this._updateSpacing());
+         this._addSettingChangedSignal(SETTINGS_PROVIDER, this._reload().bind(this));
+         this._addSettingChangedSignal(SETTINGS_REFRESH, this._updatePollTime().bind(this));
+         this._addSettingChangedSignal(SETTINGS_TEMP_UNIT, this._updateTempUnits().bind(this));
+         this._addSettingChangedSignal(SETTINGS_POSITION, this._updatePanelPosition().bind(this));
+         this._addSettingChangedSignal(SETTINGS_SPACING, this._updateSpacing().bind(this));
+         this._addSettingChangedSignal(SETTINGS_ICONS, this._updateSpacing().bind(this));
      }
 
      _reload() {
@@ -387,7 +387,7 @@ var MainMenu = GObject.registerClass(
                      gicon: GIcons.Cog,
                  }),
              });
-             this.cog.connect('clicked', () => this.provider.openSettings());
+             this.cog.connect('clicked', this.provider.openSettings().bind(this.provider));
              item.actor.add_child(this.cog);
          }
 

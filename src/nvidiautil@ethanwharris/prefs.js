@@ -88,9 +88,9 @@ function buildSettingWidget(setting) {
         let label = new Gtk.Label({label: SETTINGS[setting].label, xalign: 0});
         let control = new Gtk.Switch({active: settings.get_boolean(setting)});
 
-        control.connect('notify::active', function () {
-            settings.set_boolean(setting, control.get_active());
-        });
+        control.connect('notify::active', () =>
+            settings.set_boolean(setting, control.get_active())
+        );
 
         label.set_tooltip_text(SETTINGS[setting].tooltip);
         control.set_tooltip_text(SETTINGS[setting].tooltip);
@@ -104,9 +104,9 @@ function buildSettingWidget(setting) {
         let control = Gtk.SpinButton.new_with_range(SETTINGS[setting].min, SETTINGS[setting].max, 1);
         control.set_value(settings.get_int(setting));
 
-        control.connect('value-changed', function () {
-            settings.set_int(setting, control.get_value());
-        });
+        control.connect('value-changed', () =>
+            settings.set_int(setting, control.get_value())
+        );
 
         label.set_tooltip_text(SETTINGS[setting].tooltip);
         control.set_tooltip_text(SETTINGS[setting].tooltip);

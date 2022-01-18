@@ -45,7 +45,7 @@ var ProcessorHandler = class {
             this._processors[processor] = new Processor.LIST[processor]();
 
 
-        this._processors[processor].addProperty(function (lines) {
+        this._processors[processor].addProperty(lines => {
             let values = property.parse(lines);
             for (let i = 0; i < values.length; i++)
                 listeners[i].handle(values[i]);
